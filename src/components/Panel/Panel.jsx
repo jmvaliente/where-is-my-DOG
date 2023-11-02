@@ -1,52 +1,37 @@
-const people = [
-  {
-    name: "Dog",
-    type: "",
-    role: "Owner",
-    imageUrl:
-      "https://vivirconunpodenco.files.wordpress.com/2017/12/dscn4897.jpg?w=256&h=256&crop=1",
-    lastSeen: "3h ago",
-    lastSeenDateTime: "2023-01-23T13:23Z",
-  },
-  {
-    name: "Car",
-    type: "Dacia Sandero",
-    role: "Owner",
-    imageUrl:
-      "https://images.tagesschau.de/image/5b479805-877c-4756-918f-6dd65a4386bc/AAABiYdmUVQ/AAABibBxyuw/1x1-256/dacia-sandero-100.jpg",
-    lastSeen: "3h ago",
-    lastSeenDateTime: "2023-01-23T13:23Z",
-  },
-];
+export default function Panel({ mapRef, markers, onSelectMarker }) {
+  if (!mapRef) return null;
 
-export default function Panel() {
   return (
-    <div className="absolute right-0 bg-white p-2 m-2">
+    <div className="absolute right-0 bg-white p-2 m-2 hover:cursor-pointer">
       <ul role="list" className="divide-y divide-gray-100">
-        {people.map((person) => (
-          <li key={person.type} className="flex justify-between gap-x-6 py-5">
+        {markers.map((marker) => (
+          <li
+            key={marker.type}
+            className="flex justify-between gap-x-6 py-5"
+            onClick={() => onSelectMarker(marker)}
+          >
             <div className="flex min-w-0 gap-x-4">
               <img
                 className="h-12 w-12 flex-none rounded-full bg-gray-50"
-                src={person.imageUrl}
+                src={marker.imageUrl}
                 alt=""
               />
               <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900">
-                  {person.name}
+                  {marker.name}
                 </p>
                 <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  {person.type}
+                  {marker.type}
                 </p>
               </div>
             </div>
             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm leading-6 text-gray-900">{person.role}</p>
-              {person.lastSeen ? (
+              <p className="text-sm leading-6 text-gray-900">{marker.role}</p>
+              {marker.lastSeen ? (
                 <p className="mt-1 text-xs leading-5 text-gray-500">
                   Last seen{" "}
-                  <time dateTime={person.lastSeenDateTime}>
-                    {person.lastSeen}
+                  <time dateTime={marker.lastSeenDateTime}>
+                    {marker.lastSeen}
                   </time>
                 </p>
               ) : (
